@@ -2,6 +2,7 @@ package com.branow.memoscorecalculator.simple;
 
 import com.branow.memoscorecalculator.Score;
 import com.branow.memoscorecalculator.ScoreCalculator;
+import com.branow.memoscorecalculator.ScoreFullParams;
 import com.branow.memoscorecalculator.ScoreParams;
 import com.branow.outfits.math.Polynomial;
 
@@ -33,7 +34,7 @@ public class SimpleScoreCalculator implements ScoreCalculator {
     }
 
     @Override
-    public ScoreParams calcScoreParams(Score score) {
+    public ScoreFullParams calcScoreParams(Score score) {
         SimpleScoreParams newParams = new SimpleScoreParams();
         newParams.setLastScore(score);
         newParams.setStudyRepetition(1);
@@ -42,7 +43,7 @@ public class SimpleScoreCalculator implements ScoreCalculator {
     }
 
     @Override
-    public ScoreParams calcScoreParams(Score score, ScoreParams params) {
+    public ScoreFullParams calcScoreParams(Score score, ScoreFullParams params) {
         SimpleScoreParams newParams = new SimpleScoreParams();
         newParams.setLastScore(score);
         newParams.setStudyRepetition(params.getStudyRepetition() + 1);
@@ -57,7 +58,7 @@ public class SimpleScoreCalculator implements ScoreCalculator {
         return LocalDateTime.ofInstant(Instant.ofEpochSecond(newResetTime), ZoneId.systemDefault());
     }
 
-    private LocalDateTime calcResetTime(Score score, ScoreParams params) {
+    private LocalDateTime calcResetTime(Score score, ScoreFullParams params) {
         long last = toSeconds(params.getLastScore().getTime());
         long reset = toSeconds(params.getResetTime());
         if (last > reset)

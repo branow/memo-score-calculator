@@ -1,11 +1,11 @@
 package com.branow.memoscorecalculator.simple;
 
 import com.branow.memoscorecalculator.Score;
-import com.branow.memoscorecalculator.ScoreParams;
+import com.branow.memoscorecalculator.ScoreFullParams;
 
 import java.time.LocalDateTime;
 
-public class SimpleScoreParams implements ScoreParams {
+public class SimpleScoreParams implements ScoreFullParams {
 
     private Score lastScore;
     private LocalDateTime resetTime;

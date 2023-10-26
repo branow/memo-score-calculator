@@ -10,7 +10,7 @@ import static com.brano.print.ShortPrint.form;
 public abstract class ScoreCalculatorTest {
 
     public void printHistory(List<Score> scores) {
-        ScoreParams params = null;
+        ScoreFullParams params = null;
         for (int i=1; i<=scores.size(); i++) {
             Score score = scores.get(i - 1);
             params = printScoreParams(score, params);
@@ -20,15 +20,15 @@ public abstract class ScoreCalculatorTest {
 
     }
 
-    public ScoreParams printScoreParams(Score score, ScoreParams params) {
+    public ScoreFullParams printScoreParams(Score score, ScoreFullParams params) {
         ScoreCalculator calc = getScoreCalculator(score.getTime());
-        ScoreParams newParam =
+        ScoreFullParams newParam =
                 params == null ? calc.calcScoreParams(score) : calc.calcScoreParams(score, params);
         form().and(newParam).blue().br().println();
         return newParam;
     }
 
-    public void printScores(LocalDateTime start, LocalDateTime end, ScoreParams params) {
+    public void printScores(LocalDateTime start, LocalDateTime end, ScoreFullParams params) {
         long st = start.atZone(ZoneId.systemDefault()).toEpochSecond();
         long en = end.atZone(ZoneId.systemDefault()).toEpochSecond();
         double step = (en - st) / 3.;
@@ -38,7 +38,7 @@ public abstract class ScoreCalculatorTest {
     }
 
 
-    public void printScore(LocalDateTime current, ScoreParams params) {
+    public void printScore(LocalDateTime current, ScoreFullParams params) {
         ScoreCalculator calc = getScoreCalculator(current);
         form().and(current).tab().tab().and("score -> ").and(calc.calcScore(params)).blue().println();
     }

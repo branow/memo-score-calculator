@@ -5,8 +5,8 @@ public interface ScoreCalculator {
 
     int calcScore(ScoreParams params);
 
-    ScoreParams calcScoreParams(Score score);
+    ScoreFullParams calcScoreParams(Score score);
 
-    ScoreParams calcScoreParams(Score score, ScoreParams params);
+    ScoreFullParams calcScoreParams(Score score, ScoreFullParams params);
 
 }

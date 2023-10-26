@@ -6,6 +6,5 @@ public interface ScoreParams {
 
     Score getLastScore();
     LocalDateTime getResetTime();
-    int getStudyRepetition();
 
 }
