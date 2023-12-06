@@ -61,8 +61,9 @@ public class SimpleScoreCalculator implements ScoreCalculator {
     private LocalDateTime calcResetTime(Score score, ScoreFullParams params) {
         long last = toSeconds(params.getLastScore().getTime());
         long reset = toSeconds(params.getResetTime());
-        if (last > reset)
-            throw new IllegalArgumentException("Last score time point must be before rest point");
+        if (last > reset) {
+            last = reset;
+        }
         int interval = (int) (reset - last);
         int passedTime = (int) (currentTime - last);
         int newInterval = calcInterval(score.getScore(), interval, passedTime, params.getStudyRepetition());
