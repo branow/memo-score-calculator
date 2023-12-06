@@ -27,6 +27,7 @@ public class SimpleScoreCalculatorTest extends ScoreCalculatorTest {
 
     private static Stream<Arguments> providePrintHistory() {
         return Stream.of(
+                Arguments.of(scores0()),
                 Arguments.of(scores1()),
                 Arguments.of(scores2()),
                 Arguments.of(scores3()),
@@ -34,6 +35,21 @@ public class SimpleScoreCalculatorTest extends ScoreCalculatorTest {
         );
     }
 
+    private static List<Score> scores0() {
+        LocalDateTime time = LocalDateTime.of(2023, 1, 12, 12, 45, 30);
+        return List.of(
+                new SimpleScore(100, time),
+                new SimpleScore(100, time.plusSeconds(10)),
+                new SimpleScore(100, time.plusSeconds(20)),
+                new SimpleScore(100, time.plusSeconds(30)),
+                new SimpleScore(100, time.plusSeconds(40)),
+                new SimpleScore(100, time.plusSeconds(50)),
+                new SimpleScore(100, time.plusSeconds(60)),
+                new SimpleScore(100, time.plusSeconds(70)),
+                new SimpleScore(100, time.plusSeconds(80))
+
+        );
+    }
 
     private static List<Score> scores1() {
         LocalDateTime time = LocalDateTime.of(2023, 1, 12, 12, 45, 30);

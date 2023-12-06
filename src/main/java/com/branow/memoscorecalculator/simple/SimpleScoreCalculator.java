@@ -73,11 +73,10 @@ public class SimpleScoreCalculator implements ScoreCalculator {
 
 
     private int calcInterval(int score, int lastInterval, int passedTime, int studyRepetition) {
-        double interval = lastInterval;
-        if (lastInterval == 0) {
-            interval = calcDirectInterval(lastInterval);
-        } else {
+        double interval = calcDirectInterval(lastInterval);
+        if (lastInterval != 0) {
             interval *= calcPassedTimeMultiplier(lastInterval, passedTime);
+            interval += (lastInterval * 0.6);
         }
         interval *= calcScoreMultiplier(score);
         interval *= calcStudyRepetitionMultiplier(studyRepetition);
@@ -85,10 +84,7 @@ public class SimpleScoreCalculator implements ScoreCalculator {
     }
 
     private double calcPassedTimeMultiplier(int lastInterval, int passedTime) {
-        double m = Math.min((double) passedTime / lastInterval, 1.5);
-        double directInterval = calcDirectInterval(lastInterval);
-        double plus = (directInterval - lastInterval) * m;
-        return (lastInterval + plus) / lastInterval;
+        return Math.min((double) passedTime / lastInterval, 1.5);
     }
 
     private double calcStudyRepetitionMultiplier(int studyRepetition) {
