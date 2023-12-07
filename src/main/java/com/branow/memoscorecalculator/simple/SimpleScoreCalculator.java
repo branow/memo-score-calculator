@@ -27,6 +27,8 @@ public class SimpleScoreCalculator implements ScoreCalculator {
         int score = params.getLastScore().getScore();
         long lastTime = toSeconds(params.getLastScore().getTime());
         long resetTime = toSeconds(params.getResetTime());
+        if (lastTime > resetTime)
+            throw new IllegalStateException("Last study type cannot be after reset time");
         double interval = resetTime - lastTime;
         double passed = currentTime - lastTime;
         double passedMp = Math.max((interval - passed) / interval, 0);
