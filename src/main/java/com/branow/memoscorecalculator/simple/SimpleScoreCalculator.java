@@ -57,7 +57,7 @@ public class SimpleScoreCalculator implements ScoreCalculator {
     private LocalDateTime calcResetTime(Score score) {
         int newInterval = calcInterval(score.getScore(), 0, 0, 0);
         long newResetTime = currentTime + newInterval;
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(newResetTime), ZoneId.systemDefault());
+        return validRestTime(LocalDateTime.ofInstant(Instant.ofEpochSecond(newResetTime), ZoneId.systemDefault()), score);
     }
 
     private LocalDateTime calcResetTime(Score score, ScoreFullParams params) {
@@ -70,7 +70,16 @@ public class SimpleScoreCalculator implements ScoreCalculator {
         int passedTime = (int) (currentTime - last);
         int newInterval = calcInterval(score.getScore(), interval, passedTime, params.getStudyRepetition());
         long newResetTime = currentTime + newInterval;
-        return LocalDateTime.ofInstant(Instant.ofEpochSecond(newResetTime), ZoneId.systemDefault());
+        return validRestTime(LocalDateTime.ofInstant(Instant.ofEpochSecond(newResetTime), ZoneId.systemDefault()), score);
+    }
+
+    private LocalDateTime validRestTime(LocalDateTime restTime, Score score) {
+        if (restTime.isBefore(score.getTime())) {
+            System.out.println("RESET TIME is Before last STUDY TIME: reset=" + restTime +
+                    ", study=" + score.getTime() + ", score=" + score.getScore());
+            return score.getTime();
+        }
+        return restTime;
     }
 
 
